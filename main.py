@@ -1,10 +1,10 @@
-from algorithms import naive_search, naive_search_with_slices
+from algorithms import naive_search, naive_search_with_slices, kmp_search
 
 
-pattern = 'kd'
-text = 'abcdeamskdmacdasdkoakodk'*1_000_000
+pattern = 'abc'
+text = 'dddddddddddddddddd'
 fi1 = naive_search(pattern=pattern, text=text)
 fi2 = naive_search_with_slices(pattern=pattern, text=text)
-
-print(fi1 == fi2)
+fi3 = kmp_search(pattern=pattern, text=text)
+print(fi1 == fi2 == fi3)
 print(fi1[:10])
