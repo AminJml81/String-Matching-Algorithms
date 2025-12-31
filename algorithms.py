@@ -30,6 +30,7 @@ def naive_search_with_slices(pattern, text):
 
     return found_indices
 
+
 @time_elapsed
 def kmp_search(pattern, text):
     pattern_len, text_len = len(pattern), len(text)
@@ -54,6 +55,7 @@ def kmp_search(pattern, text):
             
         
     return found_indices                  
+
 
 def compute_lps_array(pattern):
     # lps stands for longest_prefix_suffix
@@ -80,4 +82,3 @@ def compute_lps_array(pattern):
     return lps_table
 
 
-print(compute_lps_array())
