@@ -80,5 +80,28 @@ def compute_lps_array(pattern):
                 pattern_index += 1 
 
     return lps_table
+    
 
+@time_elapsed
+def rabin_karp(pattern, text):
+    BASE, PRIME = 256, pow(9,10)+7
+    pattern_len, text_len = len(pattern), len(text)
+    found_indices = []
+    pattern_hash = current_text_hash = 0
+
+    h = pow(BASE, pattern_len - 1, PRIME)
+
+    for i in range(pattern_len):
+        pattern_hash = (BASE * pattern_hash + ord(pattern[i])) % PRIME
+        current_text_hash = (BASE * current_text_hash + ord(text[i])) % PRIME
+
+    for i in range(text_len - pattern_len + 1):
+        if pattern_hash == current_text_hash:
+            if text[i : i + pattern_len] == pattern:
+                found_indices.append(i)
+
+        if i < text_len - pattern_len:
+            current_text_hash = (BASE * (current_text_hash - ord(text[i]) * h) + ord(text[i + pattern_len])) % PRIME
+            
+    return found_indices
 
