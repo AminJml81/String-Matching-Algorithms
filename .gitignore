@@ -207,3 +207,5 @@ marimo/_lsp/
 __marimo__/
 
 extra.py
+output-screenshot.png
+algorithms-parameters.png

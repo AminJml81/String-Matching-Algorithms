@@ -105,3 +105,44 @@ def rabin_karp(pattern, text):
             
     return found_indices
 
+
+@time_elapsed
+def boyer_moore(pattern, text):
+    # This is Horspool Boyer Moore which uses Bad Character rule only.
+    pattern_len, text_len = len(pattern), len(text)
+    found_indices = []
+    bad_match_table = compute_bad_match_table(pattern)
+    
+    text_index = pattern_len - 1
+    pattern_index = pattern_len - 1
+
+    while text_index < text_len:
+        if pattern[pattern_index] == text[text_index]:
+            text_index -= 1
+            pattern_index -= 1
+
+            if pattern_index == -1:
+                found_indices.append(text_index + 1)
+                pattern_index = pattern_len -1
+                text_index += pattern_len + 1
+        
+        else:
+            offset = bad_match_table.get(text[text_index], pattern_len)
+            text_index += offset
+            pattern_index = pattern_len - 1
+
+    return found_indices
+
+
+def compute_bad_match_table(pattern):
+    bad_match_table = {}
+    pattern_len = len(pattern)
+    # for the last character, its value is pattern length.
+
+    for pattern_index, char in enumerate(pattern[:-1], 1):
+        bad_match_table[char] = pattern_len - (pattern_index)
+    
+    bad_match_table[pattern[-1]] = pattern_len
+
+    return bad_match_table
+
