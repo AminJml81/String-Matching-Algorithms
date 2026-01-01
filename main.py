@@ -4,9 +4,9 @@ from algorithms import naive_search, naive_search_with_slices, kmp_search, rabin
 if __name__ == '__main__':
     pattern = 'AABC'
     text = 'AABCKLKLKAABCsuoauweiwqAABC '*100000
-    print('running algorithms with the following parameters')
+    print('Running algorithms with the following parameters:')
     print(f'pattern: {pattern}')
-    print(f'text: {text}')
+    print(f'text_length: {len(text)} characters')
     fi1 = naive_search(pattern=pattern, text=text)
     fi2 = naive_search_with_slices(pattern=pattern, text=text)
     fi3 = kmp_search(pattern=pattern, text=text)

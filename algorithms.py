@@ -2,7 +2,7 @@ from utils import time_elapsed
 
 
 @time_elapsed
-def naive_search(pattern, text):
+def naive_search(pattern:str, text:str):
     pattern_len, text_len = len(pattern), len(text)
     found_indices = []
 
@@ -32,7 +32,7 @@ def naive_search_with_slices(pattern, text):
 
 
 @time_elapsed
-def kmp_search(pattern, text):
+def kmp_search(pattern:str, text:str):
     pattern_len, text_len = len(pattern), len(text)
     found_indices = []
     lps_table = compute_lps_array(pattern)
@@ -57,7 +57,7 @@ def kmp_search(pattern, text):
     return found_indices                  
 
 
-def compute_lps_array(pattern):
+def compute_lps_array(pattern:str):
     # lps stands for longest_prefix_suffix
     prev_lps_len = 0
 
@@ -83,7 +83,7 @@ def compute_lps_array(pattern):
     
 
 @time_elapsed
-def rabin_karp(pattern, text):
+def rabin_karp(pattern:str, text:str):
     BASE, PRIME = 256, pow(9,10)+7
     pattern_len, text_len = len(pattern), len(text)
     found_indices = []
@@ -97,6 +97,7 @@ def rabin_karp(pattern, text):
 
     for i in range(text_len - pattern_len + 1):
         if pattern_hash == current_text_hash:
+            # Verify actual string equality upon hash match to handle potential collisions.
             if text[i : i + pattern_len] == pattern:
                 found_indices.append(i)
 
@@ -107,7 +108,7 @@ def rabin_karp(pattern, text):
 
 
 @time_elapsed
-def boyer_moore(pattern, text):
+def boyer_moore(pattern:str, text:str):
     # This is Horspool Boyer Moore which uses Bad Character rule only.
     pattern_len, text_len = len(pattern), len(text)
     found_indices = []
@@ -134,7 +135,7 @@ def boyer_moore(pattern, text):
     return found_indices
 
 
-def compute_bad_match_table(pattern):
+def compute_bad_match_table(pattern:str):
     bad_match_table = {}
     pattern_len = len(pattern)
     # for the last character, its value is pattern length.
